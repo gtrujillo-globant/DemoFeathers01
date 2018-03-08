@@ -1,11 +1,12 @@
-
+const processMessage = require('../../hooks/process-message');
+const preprocessFind = require('../../hooks/preprocess-find');
 
 module.exports = {
     before: {
         all: [],
         find: [],
         get: [],
-        create: [],
+        create: [processMessage()],
         update: [],
         patch: [],
         remove: []
@@ -13,7 +14,7 @@ module.exports = {
 
     after: {
         all: [],
-        find: [],
+        find: [preprocessFind()],
         get: [],
         create: [],
         update: [],

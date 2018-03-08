@@ -9,6 +9,7 @@ module.exports = function(app) {
         app.channel('anonymous').join(connection);
     });
 
+    /*
     app.on('login', (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
@@ -35,15 +36,16 @@ module.exports = function(app) {
             // app.channel(`userIds/$(user.id}`).join(channel);
         }
     });
+    */
 
     // eslint-disable-next-line no-unused-vars
-    app.publish((data, hook) => {
+    // app.publish((data, hook) => {
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
         // e.g. to publish all service events to all authenticated users use
-        return app.channel('authenticated');
-    });
+        // return app.channel('authenticated');
+    // });
 
     // Here you can also add service specific event publishers
     // e..g the publish the `users` service `created` event to the `admins` channel

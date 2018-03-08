@@ -23,7 +23,12 @@ async function populateMessageList() {
     else {
         innerTxt = '<ul>';
         for (let msg of list) {
-            innerTxt += `<li>${msg.text}</li>`;
+            const msgTime = (new Date(msg.createdAt)).toLocaleTimeString();
+            innerTxt += `
+                <li>
+                    <span class="msg-time">${msgTime}</span>
+                    <span class="msg-text">${msg.text}</span>
+                </li>`;
         }
         innerTxt += '</ul>';
     }

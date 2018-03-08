@@ -2,3 +2,16 @@
     font-style: italic;
     color: gray;
 }
+
+.msg-time {
+    font-style: italic;
+    color: gray;
+    display: inline-block;
+    width: 100px;
+}
+
+.msg-text {
+    display: inline-block;
+    color: black;
+}
+
