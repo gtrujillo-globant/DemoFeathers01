@@ -3,25 +3,25 @@ const feathers = require('@feathersjs/feathers');
 const preprocessFind = require('../../src/hooks/preprocess-find');
 
 describe('\'preprocess-find\' hook', () => {
-  let app;
+    let app;
 
-  beforeEach(() => {
-    app = feathers();
+    beforeEach(() => {
+        app = feathers();
 
-    app.use('/dummy', {
-      async get(id) {
-        return { id };
-      }
+        app.use('/dummy', {
+            async get(id) {
+                return { id };
+            }
+        });
+
+        app.service('dummy').hooks({
+            before: preprocessFind()
+        });
     });
 
-    app.service('dummy').hooks({
-      before: preprocessFind()
-    });
-  });
-
-  it('runs the hook', async () => {
-    const result = await app.service('dummy').get('test');
+    it('runs the hook', async () => {
+        const result = await app.service('dummy').get('test');
     
-    assert.deepEqual(result, { id: 'test' });
-  });
+        assert.deepEqual(result, { id: 'test' });
+    });
 });

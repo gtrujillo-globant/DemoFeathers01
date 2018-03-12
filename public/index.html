@@ -1,21 +1,167 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
     <title>Welcome to Feathers</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>Basic Feathers Chat</h1>
-    <div>
-      <input type="text" id="message-box" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send!</button>
+    <div class="row">
+      <div class="col col-xs-10"></div>
+      <div class="col col-auto position-absolute">
+        <div class="dropdown show">
+          <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="/assets/generic.png" id="user-picture" class="rounded-circle user-picture-thumb" />  
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#" onclick="changeUser()">Change user...</a>
+          </div>
+        </div>        
+      </div>
     </div>
-    <div>
-      <div><h2>Received messages:</h2></div>
-      <div id="message-list">&nbsp;</div>
+    <div class="jumbotron h-25">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+          </div>
+          <div class="col col-sm-8 col-xs-10">
+            <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Rockwell_Automation_logo.svg/1024px-Rockwell_Automation_logo.svg.png" 
+            class="image-fluid center"
+            alt="Rockwell Automation"
+            />
+            <p class="lead text-center">
+            </p>
+          </div>
+          <div class="col"></div>  
+        </div>
+      </div>
     </div>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+    <div class="card h-75">
+        <div class="card-header">
+          Next generation communication system
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Messages:</h5>
+          <div id="message-list">&nbsp;</div>
+        </div>
+        <div class="card-footer">
+          <form class="form-inline" onsubmit="return false;">
+            <div class="input-group mb-3 col-12">
+              <input 
+                type="text" 
+                class="form-control" 
+                id="message-box"
+                placeholder="Type your message..." 
+                aria-label="Type your message" 
+                aria-describedby="basic-addon2" />
+              <div class="input-group-append">
+                <button 
+                  class="btn btn-danger" 
+                  type="submit" 
+                  onclick="sendMessage()">
+                  <img src="/assets/arrow-right-circle.svg" alt="Send" />
+                </button>
+              </div>
+            </div>
+          </form>
+      </div>    
+    </div>    
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger">
+            <h5 class="modal-title" id="modalDeleteTitle">Confirm message deletion?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This action can not be undone
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDel()">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdateTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalUpdateTitle">Enter new text</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form onsubmit="return false;">
+                <input type="text" class="form-control" id="textToUpdate"/>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-warning" onclick="confirmUpdate()">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>     
+      <div 
+        class="modal fade" 
+        id="modalSelectUser" 
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="modalSelectUserTitle" 
+        aria-hidden="true"
+        data-backdrop="static"
+        data-keyboard="false">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalSelectUserTitle">Select user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row text-right container-fluid"><em>(No password, we trust you)</em></div>
+                <div class="row">&nbsp;</div>
+                <div class="row container-fluid">
+                  <div class="col">
+                    <div class="row mx-auto">
+                      <img src="/assets/poe.jpg" class="rounded-circle user-picture-thumb" onclick="selectUser('poe')"/>
+                    </div>
+                    <div class="row mx-auto"><small>Poe</small></div>
+                  </div>
+                  <div class="col">
+                    <div class="row mx-auto">
+                      <img src="/assets/king.jpg" class="rounded-circle user-picture-thumb" onclick="selectUser('king')"/>
+                    </div>
+                    <div class="row mx-auto"><small>King</small></div>
+                  </div>
+                  <div class="col">
+                    <div class="row mx-auto">
+                      <img src="/assets/shelley.jpg" class="rounded-circle user-picture-thumb" onclick="selectUser('shelley')"/>
+                    </div>
+                    <div class="row mx-auto"><small>Shelley</small></div>
+                  </div>
+                  <div class="col">
+                    <div class="row mx-auto">
+                      <img src="/assets/lovecraft.jpg" class="rounded-circle user-picture-thumb" onclick="selectUser('lovecraft')"/>
+                    </div>
+                    <div class="row mx-auto"><small>Lovecraft</small></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>        
     <script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
     <script type="text/javascript" src="primus/primus.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="./client/app.js"></script>
   </body>
 </html>

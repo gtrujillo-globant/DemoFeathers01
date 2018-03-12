@@ -43,8 +43,8 @@ module.exports = function(app) {
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
-        // e.g. to publish all service events to all authenticated users use
-        // return app.channel('authenticated');
+    // e.g. to publish all service events to all authenticated users use
+    // return app.channel('authenticated');
     // });
 
     // Here you can also add service specific event publishers
@@ -62,4 +62,11 @@ module.exports = function(app) {
         return app.channel('anonymous');
     });
 
+    app.service('messages').publish('removed', () => {
+        return app.channel('anonymous');
+    });
+
+    app.service('messages').publish('patched', () => {
+        return app.channel('anonymous');
+    });
 };

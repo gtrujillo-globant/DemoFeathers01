@@ -15,3 +15,67 @@
     color: black;
 }
 
+.msg-update-blank, .msg-delete-blank {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    float: right;
+}
+
+.msg-update {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    float: right;
+    background-image: url('/assets/edit.svg');
+    opacity: 0.25;
+}
+
+.msg-update:hover {
+    opacity: 1;
+}
+
+.msg-delete {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    float: right;
+    background-image: url('/assets/trash.svg');
+    opacity: 0.25;
+}
+
+.msg-delete:hover {
+    opacity: 1;
+}
+
+.message {
+    margin: 5px;
+}
+
+.message:hover {
+    background-color: #ddd;
+}
+
+.message-list {
+    list-style: none;
+}
+
+.user-picture-thumb {
+    width: 40px;
+    height: 40px;
+}
+
+.user-picture-thumb-msg {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.jumbotron .container img {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
