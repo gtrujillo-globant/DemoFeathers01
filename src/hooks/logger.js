@@ -1,23 +1,32 @@
-// A hook that logs service method before, after and error
-// See https://github.com/winstonjs/winston for documentation
-// about the logger.
-const logger = require('winston');
-
-// To see more detailed messages, uncomment the following line
-// logger.level = 'debug';
+/* eslint no-console: 0 */
+// eslint-disable-next-line no-unused-vars
+const colors = require('colors');
 
 module.exports = function () {
     return context => {
-    // This debugs the service call and a stringified version of the hook context
-    // You can customize the mssage (and logger) to your needs
-        logger.debug(`${context.type} app.service('${context.path}').${context.method}()`);
+        const app = context.app;
+        // logger.debug(`${context.type} app.service('${context.path}').${context.method}()`);
     
-        if(typeof context.toJSON === 'function') {
-            logger.debug('Hook Context', JSON.stringify(context, null, '  '));
+        // if(typeof context.toJSON === 'function') {
+        //     logger.debug('Hook Context', JSON.stringify(context, null, '  '));
+        // }
+
+        if (context.path === 'messages' && context.type === 'after') {
+            switch (context.method) {
+            case 'create':
+                console.log(`Created ${JSON.stringify(context.data)}`.green);
+                break;
+            case 'patch':
+                console.log(`Updated ${JSON.stringify(context.data)}`.magenta);
+                break;
+            case 'remove':
+                console.log(`Removed id:${context.id}`.red);
+                break;
+            }
         }
     
         if (context.error) {
-            logger.error(context.error);
+            app.error(context.error);
         }
     };
 };

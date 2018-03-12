@@ -6,6 +6,10 @@ app.configure(feathers.primus(socket));
 
 const messages = app.service('messages');
 
+let user = '';
+let idToDelete = '';
+let idToUpdate = '';
+
 async function populateMessageList() {
     idToDelete = '';
     idToUpdate = '';
@@ -104,6 +108,7 @@ function getUser() {
     else {
         user = name;
         document.getElementById('user-picture').src = `/assets/${user}.jpg`;
+        populateMessageList();
     }
 }
 
@@ -115,25 +120,21 @@ function changeUser() {
 
 messages.on('created', message => {
     // eslint-disable-next-line no-console
-    console.log('Message sent', message);
+    console.log('%cMessage sent', 'color:green', message);
     populateMessageList();
 });
 
 messages.on('patched', message => {
     // eslint-disable-next-line no-console
-    console.log('Message updated', message);
+    console.log('%cMessage updated', 'color:magenta', message);
     populateMessageList();
 });
 
 messages.on('removed', message => {
     // eslint-disable-next-line no-console
-    console.log('Message removed', message);
+    console.log('%cMessage removed', 'color:red', message);
     populateMessageList();
 });
 
 // Get user
-let user = '';
 getUser();
-
-let idToDelete = '';
-let idToUpdate = '';
