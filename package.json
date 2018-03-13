@@ -26,9 +26,8 @@
     "test": "npm run eslint && npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "eslint-fix": "eslint public/client/. src/. test/. --config .eslintrc.json --fix",
-    "start": "node src/",
-    "start-ts": "npm run build && node ./dist/app.bundle.js",
-    "start-inspect": "node --inspect src/ ",
+    "start": "npm run build && node ./dist/app.bundle.js",
+    "debug": "node --inspect ./dist/app.bundle.js",
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
@@ -37,7 +36,6 @@
     "@feathersjs/express": "^1.2.0",
     "@feathersjs/feathers": "^3.1.3",
     "@feathersjs/primus": "^3.2.0",
-    "@types/feathersjs__feathers": "^3.0.1",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "engine.io": "^3.2.0",
@@ -48,6 +46,15 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "@types/compression": "0.0.35",
+    "@types/cors": "^2.8.3",
+    "@types/feathersjs__configuration": "^1.0.1",
+    "@types/feathersjs__express": "^1.1.3",
+    "@types/feathersjs__feathers": "^3.0.1",
+    "@types/feathersjs__primus": "^3.0.1",
+    "@types/helmet": "0.0.37",
+    "@types/nedb": "^1.8.5",
+    "@types/serve-favicon": "^2.2.30",
     "colors": "^1.2.1",
     "eslint": "^4.18.2",
     "mocha": "^5.0.4",
@@ -62,6 +69,7 @@
     "tslint-loader": "^3.6.0",
     "typescript": "^2.7.2",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11"
+    "webpack-cli": "^2.0.11",
+    "webpack-node-externals": "^1.6.0"
   }
 }

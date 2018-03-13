@@ -1,9 +1,12 @@
-// Initializes the `messages` service on path `/messages`
-const createService = require('feathers-nedb');
-const createModel = require('../../models/messages.model');
-const hooks = require('./messages.hooks');
+import { Application } from '@feathersjs/express';
 
-module.exports = function (app) {
+// Initializes the `messages` service on path `/messages`
+import * as createService from 'feathers-nedb';
+
+import createModel from '../../models/messages.model';
+import hooks from './messages.hooks';
+
+export default function (app: Application<object>) {
     const Model = createModel(app);
     const paginate = app.get('paginate');
 

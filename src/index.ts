@@ -1,21 +1,13 @@
-import feathers from '@feathersjs/feathers';
+/* eslint-disable no-console */
+import app from './app';
 
-const app = feathers();
+const port = app.get('port');
+const server = app.listen(port);
 
-app.use('todos', {
-  async get(name: string) {
-    return {
-      name,
-      text: `You have to do ${name}`
-    };
-  }
-});
+process.on('unhandledRejection', (reason, p) =>
+    console.error('Unhandled Rejection at: Promise ', p, reason)    // TODO: Add logger properly
+);
 
-async function getTodo(name: string) {
-  const service = app.service('todos');
-  const todo = await service.get(name);
-
-  console.log(todo);
-}
-
-getTodo('dishes');
+server.on('listening', () =>
+    console.info('Feathers application started on http://%s:%d', app.get('host'), port)
+);

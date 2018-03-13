@@ -1,24 +1,7 @@
-const webpack = require('webpack');
 const path = require('path');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
-
-const plugins = [
-    new webpack.DefinePlugin({
-        'process.env': {
-            // eslint-disable-line quote-props
-            NODE_ENV: JSON.stringify(nodeEnv)
-        }
-    }),
-    new webpack.LoaderOptionsPlugin({
-        options: {
-            tslint: {
-                emitErrors: true,
-                failOnHint: true
-            }
-        }
-    })
-];
+const nodeExternals = require('webpack-node-externals');
 
 var config = {
     devtool: isProd ? 'hidden-source-map' : 'source-map',
@@ -47,7 +30,8 @@ var config = {
     resolve: {
         extensions: ['.ts', '.js']
     },
-    plugins: plugins
+    target: 'node',
+    externals: [nodeExternals()]
 };
 
 module.exports = config;

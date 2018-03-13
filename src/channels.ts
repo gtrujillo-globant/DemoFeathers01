@@ -1,4 +1,6 @@
-module.exports = function(app) {
+import { Application } from '@feathersjs/express';
+
+export default function(app: Application<object>) {
     if(typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
         return;

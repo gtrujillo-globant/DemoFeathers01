@@ -2,8 +2,8 @@
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (options = {}) { 
-    return async context => {
+export default function (options = {}) { 
+    return async (context: any) => {
         const { data } = context;
 
         // Throw an error if we didn't get a text

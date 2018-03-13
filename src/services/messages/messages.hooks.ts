@@ -1,7 +1,7 @@
-const processMessage = require('../../hooks/process-message');
-const preprocessFind = require('../../hooks/preprocess-find');
+import processMessage from '../../hooks/process-message';
+import preprocessFind from '../../hooks/preprocess-find';
 
-module.exports = {
+export default {
     before: {
         all: [],
         find: [],
